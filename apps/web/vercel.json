@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://45-13-237-249.sslip.io/api/:path*"
+      "destination": "https://ehud-radar.45-13-237-249.sslip.io/api/:path*"
     }
   ]
 }
