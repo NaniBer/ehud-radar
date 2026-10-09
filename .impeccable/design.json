@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T14:30:00Z",
+  "title": "Design System: Ehud Radar",
+  "extensions": {
+    "shadows": [],
+    "motion": [{ "name": "control-transition", "value": "background-color 160ms ease", "purpose": "Button hover; disabled for reduced motion." }],
+    "breakpoints": [{ "name": "mobile", "value": "600px" }]
+  },
+  "components": [
+    {
+      "name": "Primary Button", "kind": "button", "refersTo": "button-primary",
+      "description": "The current form's primary action.",
+      "html": "<button class=\"ds-primary\">Sign in</button>",
+      "css": ".ds-primary{font-family:'DM Sans',sans-serif;background:#c9ed83;color:#243217;padding:14px 18px;min-height:52px;border:0;border-radius:7px;font-weight:700;cursor:pointer}.ds-primary:hover{background:#badf73}.ds-primary:focus-visible{outline:3px solid #527326;outline-offset:4px}.ds-primary:disabled{opacity:.65;cursor:not-allowed}"
+    },
+    {
+      "name": "Text Field", "kind": "input", "refersTo": "field",
+      "description": "Labeled entry with a visible focus state.",
+      "html": "<label class=\"ds-label\" for=\"ds-name\">Username</label><input class=\"ds-input\" id=\"ds-name\" value=\"ehudaiuser\" />",
+      "css": ".ds-label{display:block;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;margin-bottom:9px;color:#242b26}.ds-input{font-family:'DM Sans',sans-serif;color:#242b26;background:#fdfefa;border:1px solid #aeb7a6;border-radius:7px;padding:13px 14px;min-height:52px;box-sizing:border-box}.ds-input:focus-visible{outline:3px solid #527326;outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A quiet shared workspace",
+    "overview": "Provisional login styling with clear labels, flat surfaces, and one primary action.",
+    "keyCharacteristics": ["Self-hosted typography", "Visible keyboard focus", "Honest empty states"],
+    "rules": [],
+    "dos": ["Use real state and content"],
+    "donts": ["Do not invent prospect counts or results"]
+  }
+}

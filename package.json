@@ -1,0 +1,25 @@
+{
+  "name": "ehud-radar",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "db:local": "node scripts/local-postgres.mjs",
+    "db:stop": "node scripts/local-postgres.mjs --stop",
+    "setup:link": "node scripts/setup-link.mjs",
+    "test": "npm test -w @ehud-radar/api",
+    "dev": "concurrently -k -n api,web \"npm run dev -w @ehud-radar/api\" \"npm run dev -w @ehud-radar/web\"",
+    "build": "npm run build -w @ehud-radar/api && npm run build -w @ehud-radar/web",
+    "typecheck": "npm run typecheck -w @ehud-radar/api && npm run typecheck -w @ehud-radar/web"
+  },
+  "devDependencies": {
+    "concurrently": "10.0.6",
+    "typescript": "7.0.2"
+  }
+}

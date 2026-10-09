@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ehud_radar
+      POSTGRES_DB: ehud_radar
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - ehud_radar_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ehud_radar -d ehud_radar"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: ./apps/api
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      HOST: 0.0.0.0
+      DATABASE_URL: postgresql://ehud_radar:${POSTGRES_PASSWORD}@postgres:5432/ehud_radar
+      APP_ORIGIN: ${APP_ORIGIN:?Set APP_ORIGIN to the frontend HTTPS origin in .env}
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3002/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${CADDY_DOMAIN:?Set CADDY_DOMAIN in .env (e.g. radar.example.com)}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  ehud_radar_postgres:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,33 @@
+{
+  "name": "@ehud-radar/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --import tsx --test src/modules/auth/auth.test.ts src/modules/prospects/prospects.test.ts src/modules/discovery/discovery.test.ts src/modules/outreach/outreach.test.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "3.0.3",
+    "connect-pg-simple": "10.0.0",
+    "dotenv": "18.0.6",
+    "express": "5.2.1",
+    "express-rate-limit": "8.7.1",
+    "express-session": "1.19.0",
+    "helmet": "8.3.0",
+    "ollama": "0.6.4",
+    "pg": "8.23.1",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/connect-pg-simple": "7.0.3",
+    "@types/express": "5.0.6",
+    "@types/express-session": "1.19.0",
+    "@types/node": "26.6.4",
+    "@types/pg": "8.23.1",
+    "tsx": "4.23.15"
+  }
+}
