@@ -36,6 +36,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - default
+      - edge
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3002/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
@@ -45,6 +48,7 @@ services:
 
   caddy:
     image: caddy:2
+    profiles: ["legacy"]
     ports:
       - "80:80"
       - "443:443"
@@ -62,3 +66,9 @@ volumes:
   ehud_radar_postgres:
   caddy_data:
   caddy_config:
+
+networks:
+  default:
+  edge:
+    external: true
+    name: edge-proxy_default
