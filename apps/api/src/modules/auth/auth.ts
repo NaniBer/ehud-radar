@@ -26,6 +26,7 @@ export type AuthOptions = {
   production?: boolean;
   setupToken?: string;
   schemaName?: string;
+  demoPassword?: string;
 };
 
 export function equalToken(actual: unknown, expected: string | undefined) {
@@ -53,7 +54,7 @@ export function protectWrite(origin: string) {
 }
 
 export function createAuth(options: AuthOptions) {
-  const { pool, origin, secret, production = false, setupToken, schemaName = 'public' } = options;
+  const { pool, origin, secret, production = false, setupToken, schemaName = 'public', demoPassword } = options;
   const PgStore = connectPgSimple(session);
   const store = new PgStore({ pool, schemaName, pruneSessionInterval: options.schemaName ? false : 900 });
   const cookie = { httpOnly: true, secure: production, sameSite: 'strict' as const, path: '/' };
@@ -102,6 +103,8 @@ export function createAuth(options: AuthOptions) {
       username: USERNAME,
       setupRequired: result.rowCount === 0,
       csrfToken: request.session.csrfToken,
+      // Only present when the operator explicitly shares the demo password in the backend env.
+      demoPassword: demoPassword || undefined,
     });
   });
 

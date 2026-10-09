@@ -102,6 +102,7 @@ export default function App() {
               {state.setupRequired && !setupMode && <p className="setup-message">This account needs a password. Open the local setup link to create it.</p>}
               {error && <p className="error-message" role="alert">{error}</p>}
               {!state.setupRequired && temporaryLoginPassword && <button className="text-button temporary-login-button" type="button" disabled={busy} onClick={() => { setPassword(temporaryLoginPassword); setVisible(false); setError(''); }}>Fill temporary login</button>}
+              {!state.setupRequired && state.demoPassword && <button className="text-button temporary-login-button" type="button" disabled={busy} onClick={() => { setPassword(state.demoPassword || ''); setVisible(false); setError(''); }}>Fill login</button>}
               <button className="primary-button" type="submit" disabled={busy || (state.setupRequired && !setupMode)}>{busy ? (setupMode ? 'Creating account…' : 'Signing in…') : setupMode ? 'Create password & enter' : 'Sign in'}</button>
             </form>
             <p className="shared-note">One account. One shared workspace.</p>

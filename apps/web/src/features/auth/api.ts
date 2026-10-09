@@ -3,6 +3,7 @@ export type AuthState = {
   username: string;
   setupRequired: boolean;
   csrfToken: string;
+  demoPassword?: string;
 };
 
 export async function request<T>(path: string, body?: object, csrfToken?: string): Promise<T> {

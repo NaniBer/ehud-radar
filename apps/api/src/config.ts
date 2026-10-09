@@ -17,6 +17,8 @@ const environment = z.object({
   SEARCH_PROVIDER: z.enum(['serper','tavily']).default('serper'),
   OPENROUTER_API_KEY: z.preprocess(value => value === '' ? undefined : value, z.string().trim().min(1).max(500).optional()),
   OPENROUTER_MODEL: z.enum(['openrouter/free']).default('openrouter/free'),
+  DEMO_LOGIN_PASSWORD: z.preprocess(value => value === '' ? undefined : value,
+    z.string().min(12).max(72).optional()),
 });
 
 export function readConfig() {
@@ -43,5 +45,6 @@ export function readConfig() {
     searchEngine: env.SEARCH_PROVIDER,
     openRouterApiKey: env.OPENROUTER_API_KEY,
     openRouterModel: env.OPENROUTER_MODEL,
+    demoPassword: env.DEMO_LOGIN_PASSWORD,
   };
 }
