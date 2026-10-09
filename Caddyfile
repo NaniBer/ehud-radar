@@ -1,5 +1,3 @@
-# Legacy single-app Caddy (profile "legacy": docker compose --profile legacy up). 
-# Production routing lives in the edge-proxy repo.
 {$DOMAIN} {
 	reverse_proxy api:3002
 }
