@@ -16,7 +16,9 @@ services:
       retries: 10
 
   api:
-    build: ./apps/api
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
     environment:
       NODE_ENV: production
       PORT: 3002
