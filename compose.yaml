@@ -26,6 +26,8 @@ services:
       DATABASE_URL: postgresql://ehud_radar:${POSTGRES_PASSWORD}@postgres:5432/ehud_radar
       APP_ORIGIN: ${APP_ORIGIN:?Set APP_ORIGIN to the frontend HTTPS origin in .env}
       SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+    ports:
+      - "${API_HOST_PORT:-3002}:3002"
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,22 +38,5 @@ services:
       timeout: 5s
       retries: 5
 
-  caddy:
-    image: caddy:2
-    ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      DOMAIN: ${CADDY_DOMAIN:?Set CADDY_DOMAIN in .env (e.g. radar.example.com)}
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - api
-    restart: unless-stopped
-
 volumes:
   ehud_radar_postgres:
-  caddy_data:
-  caddy_config:
