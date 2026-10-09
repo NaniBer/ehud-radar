@@ -2,7 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "buildCommand": "npm run build",
-  "installCommand": "cd ../.. && npm install",
+  "installCommand": "npm install --prefix ../..",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/api/:path*", "destination": "https://45-13-237-249.sslip.io/api/:path*" }]
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://45-13-237-249.sslip.io/api/:path*"
+    }
+  ]
 }
