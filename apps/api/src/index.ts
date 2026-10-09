@@ -25,7 +25,10 @@ try {
     });
   }
 } catch (error) {
-  console.error(error instanceof Error && error.message.startsWith('Check .env')
-    ? error.message : 'Could not initialize the API. Check PostgreSQL and the local .env configuration.');
+  if (error instanceof Error && error.message.startsWith('Check .env')) {
+    console.error(error.message);
+  } else {
+    console.error('Could not initialize the API.', error instanceof Error ? error.stack : error);
+  }
   process.exit(1);
 }
